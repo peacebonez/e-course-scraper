@@ -69,10 +69,12 @@ const query = "javascript";
   console.log(courseraCourses);
 
   return;
-  await browser.close();
+
   //udemy
 
   //EDX
 
   //MIT
+
+  await browser.close();
 })();
