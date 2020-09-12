@@ -7,228 +7,247 @@ const puppeteer = require("puppeteer");
   const EDX = "https://www.edx.org/";
   const MIT = "https://ocw.mit.edu/";
 
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch();
+  // const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
-  //~~~~~~~~~~~~~~~~~~~coursera~~~~~~~~~~~~~~~~~~~
-
   try {
-    await page.goto(COURSERA, { waitUntil: "load" });
+    //~~~~~~~~~~~~~~~~~~~coursera~~~~~~~~~~~~~~~~~~~
 
-    //wait for input elements to load
-    await page.waitForSelector("input");
-  } catch (err) {
-    console.error(err);
-    await browser.close();
-  }
+    try {
+      await page.goto(COURSERA, { waitUntil: "load" });
 
-  const courseraInput = (await page.$$(".react-autosuggest__input"))[1];
-  await courseraInput.type(query);
-  await courseraInput.type(String.fromCharCode(13));
+      //wait for input elements to load
+      await page.waitForSelector("input");
+    } catch (err) {
+      console.error(err);
+      await browser.close();
+    }
 
-  await page.waitFor(800);
-  const courseraList = await page.$$(".ais-InfiniteHits-item");
-  //   console.log(courseraList);
+    const courseraInput = (await page.$$(".react-autosuggest__input"))[1];
+    await courseraInput.type(query);
+    await courseraInput.type(String.fromCharCode(13));
 
-  let courseraCourses = [];
-  for (let item of courseraList) {
-    const link = await item
-      .$eval("a", (a) => a.href)
-      .catch((err) => console.log("no link"));
+    await page.waitFor(800);
+    const courseraList = await page.$$(".ais-InfiniteHits-item");
+    //   console.log(courseraList);
 
-    // console.log(link);
+    let courseraCourses = [];
+    for (let item of courseraList) {
+      const link = await item
+        .$eval("a", (a) => a.href)
+        .catch((err) => console.log("no link"));
 
-    const courseName = await item
-      .$eval("h2", (name) => name.textContent)
-      .catch((err) => console.log("no course name"));
+      // console.log(link);
 
-    // console.log(courseName);
+      const courseName = await item
+        .$eval("h2", (name) => name.textContent)
+        .catch((err) => console.log("no course name"));
 
-    const instructor = await item
-      .$eval(".partner-name", (name) => name.textContent)
-      .catch((err) => console.log("no partner name"));
+      // console.log(courseName);
 
-    // console.log(instructor);
+      const instructor = await item
+        .$eval(".partner-name", (name) => name.textContent)
+        .catch((err) => console.log("no partner name"));
 
-    const image = await item
-      .$eval(".image-wrapper img", (img) => img.src)
-      .catch((err) => console.log("no image"));
+      // console.log(instructor);
 
-    // console.log(image);
+      const image = await item
+        .$eval(".image-wrapper img", (img) => img.src)
+        .catch((err) => console.log("no image"));
 
-    const courseraItem = {
-      courseName,
-      instructor,
-      image,
-      link,
-    };
+      // console.log(image);
 
-    courseraCourses = [...courseraCourses, courseraItem];
+      const courseraItem = {
+        courseName,
+        instructor,
+        image,
+        link,
+      };
 
-    //courses = [...courseraCourses, udemyCourses..., edxCourses..., mitCourses...]
-  }
+      courseraCourses = [...courseraCourses, courseraItem];
 
-  //~~~~~~~~~~~~udemy~~~~~~~~~~~~~~~~
+      //courses = [...courseraCourses, udemyCourses..., edxCourses..., mitCourses...]
+    }
 
-  try {
-    await page.goto(UDEMY, { waitUntil: "load" });
+    //~~~~~~~~~~~~udemy~~~~~~~~~~~~~~~~
 
-    //wait for input elements to load
-    await page.waitForSelector("input");
-  } catch (err) {
-    console.error(err);
-    await browser.close();
-  }
+    try {
+      await page.goto(UDEMY, { waitUntil: "load" });
 
-  const udemyInput = await page.$(".billboard--billboard--3-fQr input");
+      //wait for input elements to load
+      await page.waitForSelector("input");
+    } catch (err) {
+      console.error(err);
+      await browser.close();
+    }
 
-  await udemyInput.type(query);
-  await udemyInput.type(String.fromCharCode(13));
+    const udemyInput = await page.$(".billboard--billboard--3-fQr input");
 
-  await page.waitForSelector(".udlite-container");
+    await udemyInput.type(query);
+    await udemyInput.type(String.fromCharCode(13));
 
-  const udemyListRaw = [...(await page.$$(".popover--popover--t3rNO"))];
-  const udemyList = udemyListRaw.splice(4, udemyListRaw.length - 1);
+    await page.waitForSelector(".udlite-container");
 
-  //hides an ad interfering with scraping
-  const ad = await page
-    .$eval(
-      ".search--unit-injection--1bANP",
-      (ad) => (ad.style.display = "none")
-    )
-    .catch((err) => console.log("no title"));
+    const udemyListRaw = [...(await page.$$(".popover--popover--t3rNO"))];
+    const udemyList = udemyListRaw.splice(4, udemyListRaw.length - 1);
 
-  let udemyCourses = [];
-  for (let item of udemyList) {
-    const courseName = await item
-      .$eval(".udlite-focus-visible-target", (title) => title.textContent)
+    //hides an ad interfering with scraping
+    const ad = await page
+      .$eval(
+        ".search--unit-injection--1bANP",
+        (ad) => (ad.style.display = "none")
+      )
       .catch((err) => console.log("no title"));
 
-    // console.log(courseName);
+    let udemyCourses = [];
+    for (let item of udemyList) {
+      const courseName = await item
+        .$eval(".udlite-focus-visible-target", (title) => title.textContent)
+        .catch((err) => console.log("no title"));
 
-    const instructor = await item
-      .$eval(".udlite-text-xs", (text) => text.textContent)
-      .catch((err) => console.log("no instructor"));
+      // console.log(courseName);
 
-    // console.log(instructor);
+      const instructor = await item
+        .$eval(".udlite-text-xs", (text) => text.textContent)
+        .catch((err) => console.log("no instructor"));
 
-    const imageRaw = await item
-      .$eval(".course-card--course-image--2sjYP", (img) => img.src)
-      .catch((err) => console.log("no image"));
+      // console.log(instructor);
 
-    const link = await item
-      .$eval("a", (a) => a.href)
-      .catch((err) => console.log("no link"));
+      const imageRaw = await item
+        .$eval(".course-card--course-image--2sjYP", (img) => img.src)
+        .catch((err) => console.log("no image"));
 
-    const image = imageRaw.startsWith("data") ? "" : imageRaw;
+      const link = await item
+        .$eval("a", (a) => a.href)
+        .catch((err) => console.log("no link"));
 
-    const udemyItem = {
-      courseName,
-      instructor,
-      image,
-      link,
-    };
+      const image = imageRaw.startsWith("data") ? "" : imageRaw;
 
-    udemyCourses = [...udemyCourses, udemyItem];
-  }
+      const udemyItem = {
+        courseName,
+        instructor,
+        image,
+        link,
+      };
 
-  //~~~~~~~~~~~~~~~~~EDX~~~~~~~~~~~~~~~~~~~~~~~~
+      udemyCourses = [...udemyCourses, udemyItem];
+    }
 
-  try {
-    await page.goto(EDX, { waitUntil: "load" });
+    //~~~~~~~~~~~~~~~~~EDX~~~~~~~~~~~~~~~~~~~~~~~~
 
-    //wait for input elements to load
-    await page.waitForSelector("input");
+    try {
+      await page.goto(EDX, { waitUntil: "load" });
+
+      //wait for input elements to load
+      await page.waitForSelector("input");
+    } catch (err) {
+      console.error(err);
+      await browser.close();
+    }
+
+    const edxInput = await page.$("#home-search");
+    await edxInput.type(query);
+    await edxInput.type(String.fromCharCode(13));
+
+    //wait for results
+    try {
+      await page.waitForSelector(".d-md-block");
+    } catch (err) {
+      console.error(err);
+    }
+
+    const edxList = await page.$$(".discovery-card");
+
+    let edxCourses = [];
+    for (let item of edxList) {
+      const courseName = await item
+        .$eval(".name-heading", (title) => title.textContent)
+        .catch((err) => console.log("no title"));
+
+      const instructor = await item
+        .$eval(".provider", (text) => text.textContent)
+        .catch((err) => console.log("no instructor"));
+
+      const image = await item
+        .$eval("img", (img) => img.src)
+        .catch((err) => console.log("no src"));
+
+      const link = await item
+        .$eval("a", (a) => a.href)
+        .catch((err) => console.log("no link"));
+
+      const edxItem = {
+        courseName,
+        instructor,
+        image,
+        link,
+      };
+
+      edxCourses = [...edxCourses, edxItem];
+    }
+
+    //MIT
+
+    try {
+      await page.goto(MIT, { waitUntil: "load" });
+
+      //wait for input elements to load
+      await page.waitForSelector("input");
+    } catch (err) {
+      console.error(err);
+      await browser.close();
+    }
+
+    const mitInput = await page.$("#gsc-i-id1");
+    await mitInput.type(query);
+    await mitInput.type(String.fromCharCode(13));
+
+    //wait for results
+
+    try {
+      await page.waitForSelector("#resInfo-1");
+    } catch (err) {
+      console.error(err);
+    }
+
+    const mitList = await page.$$(".gsc-result");
+
+    let mitCourses = [];
+    for (let item of mitList) {
+      const courseName = await item
+        .$eval(".gs-title", (title) => title.textContent)
+        .catch((err) => console.log("no title"));
+
+      const image = await item
+        .$eval("img", (img) => img.src)
+        .catch((err) => console.log("no src"));
+
+      const link = await item
+        .$eval(".gs-title a", (a) => a.href)
+        .catch((err) => console.log("no link"));
+
+      const mitItem = {
+        courseName,
+        instructor: "MIT",
+        image,
+        link,
+      };
+
+      mitCourses = [...mitCourses, mitItem];
+    }
+
+    courses = [
+      ...courseraCourses,
+      ...udemyCourses,
+      ...edxCourses,
+      ...mitCourses,
+    ];
+
+    console.log(courses);
   } catch (err) {
-    console.error(err);
-    await browser.close();
+    console.error(err + ": no results found");
   }
-
-  const edxInput = await page.$("#home-search");
-  await edxInput.type(query);
-  await edxInput.type(String.fromCharCode(13));
-
-  //wait for results
-  await page.waitForSelector(".d-md-block");
-
-  const edxList = await page.$$(".discovery-card");
-
-  let edxCourses = [];
-  for (let item of edxList) {
-    const courseName = await item
-      .$eval(".name-heading", (title) => title.textContent)
-      .catch((err) => console.log("no title"));
-
-    const instructor = await item
-      .$eval(".provider", (text) => text.textContent)
-      .catch((err) => console.log("no instructor"));
-
-    const image = await item
-      .$eval("img", (img) => img.src)
-      .catch((err) => console.log("no src"));
-
-    const link = await item
-      .$eval("a", (a) => a.href)
-      .catch((err) => console.log("no link"));
-
-    const edxItem = {
-      courseName,
-      instructor,
-      image,
-      link,
-    };
-
-    edxCourses = [...edxCourses, edxItem];
-  }
-
-  //MIT
-
-  try {
-    await page.goto(MIT, { waitUntil: "load" });
-
-    //wait for input elements to load
-    await page.waitForSelector("input");
-  } catch (err) {
-    console.error(err);
-    await browser.close();
-  }
-
-  const mitInput = await page.$("#gsc-i-id1");
-  await mitInput.type(query);
-  await mitInput.type(String.fromCharCode(13));
-
-  //wait for results
-  await page.waitForSelector("#resInfo-1");
-
-  const mitList = await page.$$(".gsc-result");
-
-  let mitCourses = [];
-  for (let item of mitList) {
-    const courseName = await item
-      .$eval(".gs-title", (title) => title.textContent)
-      .catch((err) => console.log("no title"));
-
-    const image = await item
-      .$eval("img", (img) => img.src)
-      .catch((err) => console.log("no src"));
-
-    const link = await item
-      .$eval(".gs-title a", (a) => a.href)
-      .catch((err) => console.log("no link"));
-
-    const mitItem = {
-      courseName,
-      instructor: "MIT",
-      image,
-      link,
-    };
-
-    mitCourses = [...mitCourses, mitItem];
-  }
-
-  courses = [...courseraCourses, ...udemyCourses, ...edxCourses, ...mitCourses];
-
-  console.log(courses);
 
   // await browser.close();
-})("javascript");
+})("");
