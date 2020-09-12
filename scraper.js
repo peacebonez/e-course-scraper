@@ -1,259 +1,259 @@
-(async (query) => {
-  const puppeteer = require("puppeteer");
-  console.log("Scraper Running!");
+// (async (query) => {
+//   const puppeteer = require("puppeteer");
+//   console.log("Scraper Running!");
 
-  let courses = [];
-  const COURSERA = "https://www.coursera.org/search";
-  const UDEMY = "https://www.udemy.com/";
-  const EDX = "https://www.edx.org/";
-  const MIT = "https://ocw.mit.edu/";
+//   let courses = [];
+//   const COURSERA = "https://www.coursera.org/search";
+//   const UDEMY = "https://www.udemy.com/";
+//   const EDX = "https://www.edx.org/";
+//   const MIT = "https://ocw.mit.edu/";
 
-  const browser = await puppeteer.launch();
+//   const browser = await puppeteer.launch();
 
-  const browserWSEndpoint = await browser.wsEndpoint();
-  // browser.disconnect();
-  console.log(browserWSEndpoint);
-  // console.log("Scraper still running!");
-  // const browser = await puppeteer.launch({ headless: false });
-  const page = await browser.newPage();
+//   const browserWSEndpoint = await browser.wsEndpoint();
+//   // browser.disconnect();
+//   console.log(browserWSEndpoint);
+//   // console.log("Scraper still running!");
+//   // const browser = await puppeteer.launch({ headless: false });
+//   const page = await browser.newPage();
 
-  try {
-    //~~~~~~~~~~~~~~~~~~~coursera~~~~~~~~~~~~~~~~~~~
+//   try {
+//     //~~~~~~~~~~~~~~~~~~~coursera~~~~~~~~~~~~~~~~~~~
 
-    try {
-      await page.goto(COURSERA, { waitUntil: "load" });
+//     try {
+//       await page.goto(COURSERA, { waitUntil: "load" });
 
-      //wait for input elements to load
-      await page.waitForSelector("input");
-    } catch (err) {
-      console.error(err);
-      await browser.close();
-    }
+//       //wait for input elements to load
+//       await page.waitForSelector("input");
+//     } catch (err) {
+//       console.error(err);
+//       await browser.close();
+//     }
 
-    const courseraInput = (await page.$$(".react-autosuggest__input"))[1];
-    await courseraInput.type(query);
-    await courseraInput.type(String.fromCharCode(13));
+//     const courseraInput = (await page.$$(".react-autosuggest__input"))[1];
+//     await courseraInput.type(query);
+//     await courseraInput.type(String.fromCharCode(13));
 
-    await page.waitFor(800);
-    const courseraList = await page.$$(".ais-InfiniteHits-item");
-    //   console.log(courseraList);
+//     await page.waitFor(800);
+//     const courseraList = await page.$$(".ais-InfiniteHits-item");
+//     //   console.log(courseraList);
 
-    let courseraCourses = [];
-    for (let item of courseraList) {
-      const link = await item
-        .$eval("a", (a) => a.href)
-        .catch((err) => console.log("no link"));
+//     let courseraCourses = [];
+//     for (let item of courseraList) {
+//       const link = await item
+//         .$eval("a", (a) => a.href)
+//         .catch((err) => console.log("no link"));
 
-      // console.log(link);
+//       // console.log(link);
 
-      const courseName = await item
-        .$eval("h2", (name) => name.textContent)
-        .catch((err) => console.log("no course name"));
+//       const courseName = await item
+//         .$eval("h2", (name) => name.textContent)
+//         .catch((err) => console.log("no course name"));
 
-      // console.log(courseName);
+//       // console.log(courseName);
 
-      const instructor = await item
-        .$eval(".partner-name", (name) => name.textContent)
-        .catch((err) => console.log("no partner name"));
+//       const instructor = await item
+//         .$eval(".partner-name", (name) => name.textContent)
+//         .catch((err) => console.log("no partner name"));
 
-      // console.log(instructor);
+//       // console.log(instructor);
 
-      const image = await item
-        .$eval(".image-wrapper img", (img) => img.src)
-        .catch((err) => console.log("no image"));
+//       const image = await item
+//         .$eval(".image-wrapper img", (img) => img.src)
+//         .catch((err) => console.log("no image"));
 
-      // console.log(image);
+//       // console.log(image);
 
-      const courseraItem = {
-        courseName,
-        instructor,
-        image,
-        link,
-      };
+//       const courseraItem = {
+//         courseName,
+//         instructor,
+//         image,
+//         link,
+//       };
 
-      courseraCourses = [...courseraCourses, courseraItem];
+//       courseraCourses = [...courseraCourses, courseraItem];
 
-      //courses = [...courseraCourses, udemyCourses..., edxCourses..., mitCourses...]
-    }
+//       //courses = [...courseraCourses, udemyCourses..., edxCourses..., mitCourses...]
+//     }
 
-    //~~~~~~~~~~~~udemy~~~~~~~~~~~~~~~~
+//     //~~~~~~~~~~~~udemy~~~~~~~~~~~~~~~~
 
-    try {
-      await page.goto(UDEMY, { waitUntil: "load" });
+//     try {
+//       await page.goto(UDEMY, { waitUntil: "load" });
 
-      //wait for input elements to load
-      await page.waitForSelector("input");
-    } catch (err) {
-      console.error(err);
-      await browser.close();
-    }
+//       //wait for input elements to load
+//       await page.waitForSelector("input");
+//     } catch (err) {
+//       console.error(err);
+//       await browser.close();
+//     }
 
-    const udemyInput = await page.$(".billboard--billboard--3-fQr input");
+//     const udemyInput = await page.$(".billboard--billboard--3-fQr input");
 
-    await udemyInput.type(query);
-    await udemyInput.type(String.fromCharCode(13));
+//     await udemyInput.type(query);
+//     await udemyInput.type(String.fromCharCode(13));
 
-    await page.waitForSelector(".udlite-container");
+//     await page.waitForSelector(".udlite-container");
 
-    const udemyListRaw = [...(await page.$$(".popover--popover--t3rNO"))];
-    const udemyList = udemyListRaw.splice(4, udemyListRaw.length - 1);
+//     const udemyListRaw = [...(await page.$$(".popover--popover--t3rNO"))];
+//     const udemyList = udemyListRaw.splice(4, udemyListRaw.length - 1);
 
-    //hides an ad interfering with scraping
-    const ad = await page
-      .$eval(
-        ".search--unit-injection--1bANP",
-        (ad) => (ad.style.display = "none")
-      )
-      .catch((err) => console.log("no title"));
+//     //hides an ad interfering with scraping
+//     const ad = await page
+//       .$eval(
+//         ".search--unit-injection--1bANP",
+//         (ad) => (ad.style.display = "none")
+//       )
+//       .catch((err) => console.log("no title"));
 
-    let udemyCourses = [];
-    for (let item of udemyList) {
-      const courseName = await item
-        .$eval(".udlite-focus-visible-target", (title) => title.textContent)
-        .catch((err) => console.log("no title"));
+//     let udemyCourses = [];
+//     for (let item of udemyList) {
+//       const courseName = await item
+//         .$eval(".udlite-focus-visible-target", (title) => title.textContent)
+//         .catch((err) => console.log("no title"));
 
-      // console.log(courseName);
+//       // console.log(courseName);
 
-      const instructor = await item
-        .$eval(".udlite-text-xs", (text) => text.textContent)
-        .catch((err) => console.log("no instructor"));
+//       const instructor = await item
+//         .$eval(".udlite-text-xs", (text) => text.textContent)
+//         .catch((err) => console.log("no instructor"));
 
-      // console.log(instructor);
+//       // console.log(instructor);
 
-      const imageRaw = await item
-        .$eval(".course-card--course-image--2sjYP", (img) => img.src)
-        .catch((err) => console.log("no image"));
+//       const imageRaw = await item
+//         .$eval(".course-card--course-image--2sjYP", (img) => img.src)
+//         .catch((err) => console.log("no image"));
 
-      const link = await item
-        .$eval("a", (a) => a.href)
-        .catch((err) => console.log("no link"));
+//       const link = await item
+//         .$eval("a", (a) => a.href)
+//         .catch((err) => console.log("no link"));
 
-      const image = imageRaw.startsWith("data") ? "" : imageRaw;
+//       const image = imageRaw.startsWith("data") ? "" : imageRaw;
 
-      const udemyItem = {
-        courseName,
-        instructor,
-        image,
-        link,
-      };
+//       const udemyItem = {
+//         courseName,
+//         instructor,
+//         image,
+//         link,
+//       };
 
-      udemyCourses = [...udemyCourses, udemyItem];
-    }
+//       udemyCourses = [...udemyCourses, udemyItem];
+//     }
 
-    //~~~~~~~~~~~~~~~~~EDX~~~~~~~~~~~~~~~~~~~~~~~~
+//     //~~~~~~~~~~~~~~~~~EDX~~~~~~~~~~~~~~~~~~~~~~~~
 
-    try {
-      await page.goto(EDX, { waitUntil: "load" });
+//     try {
+//       await page.goto(EDX, { waitUntil: "load" });
 
-      //wait for input elements to load
-      await page.waitForSelector("input");
-    } catch (err) {
-      console.error(err);
-      await browser.close();
-    }
+//       //wait for input elements to load
+//       await page.waitForSelector("input");
+//     } catch (err) {
+//       console.error(err);
+//       await browser.close();
+//     }
 
-    const edxInput = await page.$("#home-search");
-    await edxInput.type(query);
-    await edxInput.type(String.fromCharCode(13));
+//     const edxInput = await page.$("#home-search");
+//     await edxInput.type(query);
+//     await edxInput.type(String.fromCharCode(13));
 
-    //wait for results
-    try {
-      await page.waitForSelector(".d-md-block");
-    } catch (err) {
-      console.error(err);
-    }
+//     //wait for results
+//     try {
+//       await page.waitForSelector(".d-md-block");
+//     } catch (err) {
+//       console.error(err);
+//     }
 
-    const edxList = await page.$$(".discovery-card");
+//     const edxList = await page.$$(".discovery-card");
 
-    let edxCourses = [];
-    for (let item of edxList) {
-      const courseName = await item
-        .$eval(".name-heading", (title) => title.textContent)
-        .catch((err) => console.log("no title"));
+//     let edxCourses = [];
+//     for (let item of edxList) {
+//       const courseName = await item
+//         .$eval(".name-heading", (title) => title.textContent)
+//         .catch((err) => console.log("no title"));
 
-      const instructor = await item
-        .$eval(".provider", (text) => text.textContent)
-        .catch((err) => console.log("no instructor"));
+//       const instructor = await item
+//         .$eval(".provider", (text) => text.textContent)
+//         .catch((err) => console.log("no instructor"));
 
-      const image = await item
-        .$eval("img", (img) => img.src)
-        .catch((err) => console.log("no src"));
+//       const image = await item
+//         .$eval("img", (img) => img.src)
+//         .catch((err) => console.log("no src"));
 
-      const link = await item
-        .$eval("a", (a) => a.href)
-        .catch((err) => console.log("no link"));
+//       const link = await item
+//         .$eval("a", (a) => a.href)
+//         .catch((err) => console.log("no link"));
 
-      const edxItem = {
-        courseName,
-        instructor,
-        image,
-        link,
-      };
+//       const edxItem = {
+//         courseName,
+//         instructor,
+//         image,
+//         link,
+//       };
 
-      edxCourses = [...edxCourses, edxItem];
-    }
+//       edxCourses = [...edxCourses, edxItem];
+//     }
 
-    //MIT
+//     //MIT
 
-    try {
-      await page.goto(MIT, { waitUntil: "load" });
+//     try {
+//       await page.goto(MIT, { waitUntil: "load" });
 
-      //wait for input elements to load
-      await page.waitForSelector("input");
-    } catch (err) {
-      console.error(err);
-      await browser.close();
-    }
+//       //wait for input elements to load
+//       await page.waitForSelector("input");
+//     } catch (err) {
+//       console.error(err);
+//       await browser.close();
+//     }
 
-    const mitInput = await page.$("#gsc-i-id1");
-    await mitInput.type(query);
-    await mitInput.type(String.fromCharCode(13));
+//     const mitInput = await page.$("#gsc-i-id1");
+//     await mitInput.type(query);
+//     await mitInput.type(String.fromCharCode(13));
 
-    //wait for results
+//     //wait for results
 
-    try {
-      await page.waitForSelector("#resInfo-1");
-    } catch (err) {
-      console.error(err);
-    }
+//     try {
+//       await page.waitForSelector("#resInfo-1");
+//     } catch (err) {
+//       console.error(err);
+//     }
 
-    const mitList = await page.$$(".gsc-result");
+//     const mitList = await page.$$(".gsc-result");
 
-    let mitCourses = [];
-    for (let item of mitList) {
-      const courseName = await item
-        .$eval(".gs-title", (title) => title.textContent)
-        .catch((err) => console.log("no title"));
+//     let mitCourses = [];
+//     for (let item of mitList) {
+//       const courseName = await item
+//         .$eval(".gs-title", (title) => title.textContent)
+//         .catch((err) => console.log("no title"));
 
-      const image = await item
-        .$eval("img", (img) => img.src)
-        .catch((err) => console.log("no src"));
+//       const image = await item
+//         .$eval("img", (img) => img.src)
+//         .catch((err) => console.log("no src"));
 
-      const link = await item
-        .$eval(".gs-title a", (a) => a.href)
-        .catch((err) => console.log("no link"));
+//       const link = await item
+//         .$eval(".gs-title a", (a) => a.href)
+//         .catch((err) => console.log("no link"));
 
-      const mitItem = {
-        courseName,
-        instructor: "MIT",
-        image,
-        link,
-      };
+//       const mitItem = {
+//         courseName,
+//         instructor: "MIT",
+//         image,
+//         link,
+//       };
 
-      mitCourses = [...mitCourses, mitItem];
-    }
+//       mitCourses = [...mitCourses, mitItem];
+//     }
 
-    courses = [
-      ...courseraCourses,
-      ...udemyCourses,
-      ...edxCourses,
-      ...mitCourses,
-    ];
-  } catch (err) {
-    console.error(err + ": no results found");
-  }
+//     courses = [
+//       ...courseraCourses,
+//       ...udemyCourses,
+//       ...edxCourses,
+//       ...mitCourses,
+//     ];
+//   } catch (err) {
+//     console.error(err + ": no results found");
+//   }
 
-  await browser.close();
-  console.log(courses);
-  return courses;
-})("reactjs");
+//   await browser.close();
+//   console.log(courses);
+//   return courses;
+// })("reactjs");

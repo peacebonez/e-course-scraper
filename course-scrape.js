@@ -11,10 +11,6 @@ module.exports = async (query) => {
 
   const browser = await puppeteer.launch();
 
-  const browserWSEndpoint = await browser.wsEndpoint();
-  // browser.disconnect();
-  console.log(browserWSEndpoint);
-  // console.log("Scraper still running!");
   // const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
