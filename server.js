@@ -12,7 +12,7 @@ app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 
 //home page
-app.use("/", express.static(path.join(__dirname, "client", "build")));
+app.use("/", express.static(path.join(__dirname, "client", "public")));
 
 // home page
 // app.get("/", (req, res) => {

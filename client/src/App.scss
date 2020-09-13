@@ -1,0 +1,91 @@
+//VARIABLES
+$basic-border: solid 1px black;
+$small-font: 20px;
+$blue: #80d4f7;
+
+* {
+  box-sizing: border-box;
+}
+
+//App container
+.App {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+//Header
+.header-wr {
+  // border-bottom: $basic-border;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 8vh;
+}
+
+.form-wr {
+  border-bottom: solid 1px #555;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-form {
+}
+
+#search-bar {
+  height: 40px;
+  width: 75vw;
+  font-size: $small-font;
+  padding-left: 10px;
+  outline: none;
+}
+
+#search-btn {
+  font-size: 10vw;
+  padding: 0px;
+  border: solid 1 px #fff;
+  background: $blue;
+  color: #fff;
+  border-radius: 0 10px 10px 0;
+}
+
+#logo {
+  width: 10%;
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+}
+
+//Landing Page
+
+.landing-wr {
+  min-height: 100vh;
+  min-width: 100vw;
+  position: absolute;
+  // top: 0;
+  z-index: -1;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.45),
+      rgba(128, 212, 247, 0.45)
+    ),
+    url("../src/assets/learn.jpg");
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+//Promo Box
+
+.promo-wr {
+  width: 75vw;
+  height: 75vw;
+  background: $blue;
+  margin: 10vw;
+}
+
+.promo-img {
+  width: 25%;
+}
