@@ -2,19 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import logo from "../assets/stem-icon.png";
 
-const Promo = () => {
+const Promo = ({ icon, heading, paragraph, orientation }) => {
   return (
-    <div className="promo-wr">
-      <img className="promo-img" src={logo} alt="logo" />
-      <h2>Learn the latest skills</h2>
-      <p>
-        Pomp his feere nor his sighed oft start vaunted none have. Ways heralds
-        with these paphian disappointed for, perchance known.
-      </p>
+    <div className={`promo-wr hover-tilt-${orientation}`}>
+      <div className="promo-img-wr">{icon}</div>
+      <h2>{heading}</h2>
+      <p>{paragraph}</p>
     </div>
   );
 };
 
-Promo.propTypes = {};
+Promo.propTypes = {
+  icon: PropTypes.object.isRequired,
+  heading: PropTypes.string.isRequired,
+  paragraph: PropTypes.string.isRequired,
+  orientation: PropTypes.string,
+};
 
 export default Promo;
