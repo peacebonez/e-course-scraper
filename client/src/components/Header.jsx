@@ -21,11 +21,6 @@ const Header = () => {
     setUserQuery(e.target.value);
   };
 
-  // console.log("userQuery:", userQuery);
-  // if (redirect) {
-  //   return <Redirect to={`/search?course=${userQuery}`} />;
-  // }
-
   return (
     <div className="header-wr">
       <form

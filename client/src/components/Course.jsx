@@ -1,24 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Course = () => {
+const Course = ({ courseName, instructor, image, link }) => {
+  if (courseName.length > 50) courseName = courseName.substr(0, 50) + "...";
+
   return (
-    <a href="https://cs50.harvard.edu/college/2020/fall/">
+    <a href={link}>
       <div className="course-wr">
         <div className="course-img-wr">
-          <img
-            className="course-img"
-            src="https://www.edx.org/sites/default/files/a7fb93c8-ac95-4313-a4be-8958d3ea7bd1.jpeg"
-            alt="course name"
-          />
+          <img className="course-img" src={image} alt="course name" />
         </div>
-        <h2 className="course-name">Course Name</h2>
-        <h4 className="instructor">Instructor</h4>
+        <h2 className="course-name">{courseName}</h2>
+        <h4 className="instructor">{instructor}</h4>
       </div>
     </a>
   );
 };
 
-Course.propTypes = {};
+Course.propTypes = {
+  courseName: PropTypes.string,
+  instructor: PropTypes.string,
+  image: PropTypes.string,
+  link: PropTypes.string,
+};
 
 export default Course;

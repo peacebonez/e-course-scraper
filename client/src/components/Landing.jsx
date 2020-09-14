@@ -1,7 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FaUserClock } from "react-icons/fa";
-import { FaChalkboardTeacher } from "react-icons/fa";
+import {
+  FaUserClock,
+  FaChalkboardTeacher,
+  FaStamp,
+  FaCloudUploadAlt,
+} from "react-icons/fa";
 
 import Promo from "./Promo";
 
@@ -9,11 +13,17 @@ const Landing = () => {
   return (
     <div className="landing-wr">
       <div className="landing-background"></div>
-      <h1>Find STEM courses online from respected institutions!</h1>
+      <div className="landing-header-wr">
+        <h1>
+          Find <span className="text-strong">STEM</span> courses online from
+          respected institutions!
+        </h1>
+      </div>
       <h2>
         Nothing is stopping you from getting the skills and education <i>you</i>{" "}
         desire.
       </h2>
+      <hr></hr>
       <Promo
         icon={<FaChalkboardTeacher className="promo-icon" />}
         heading={"Learn the latest skills"}
@@ -29,7 +39,7 @@ const Landing = () => {
         orientation={"l"}
       />
       <Promo
-        icon={<FaUserClock className="promo-icon" />}
+        icon={<FaStamp className="promo-icon" />}
         heading={"Earn the right credentials"}
         paragraph={
           "from a leading university in business, computer science, and more"
@@ -37,7 +47,7 @@ const Landing = () => {
         orientation={"r"}
       />
       <Promo
-        icon={<FaUserClock className="promo-icon" />}
+        icon={<FaCloudUploadAlt className="promo-icon" />}
         heading={"Take your organization to the next level"}
         paragraph={
           "with on-demand training and development programs for your employees and colleagues.  Keep driving forward"
