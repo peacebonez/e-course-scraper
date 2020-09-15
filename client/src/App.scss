@@ -237,3 +237,10 @@ hr {
     background: linear-gradient(90deg, #eee, $blue);
   }
 }
+
+.loading-wr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
