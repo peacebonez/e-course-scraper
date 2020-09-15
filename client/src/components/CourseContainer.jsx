@@ -151,41 +151,32 @@ const CourseContainer = ({ courses }) => {
   const [loading, setLoading] = useState(false);
   // const [courses, setCourses] = useState(testCourses);
 
+  console.log("courses from reducer:", courses);
   useEffect(() => {});
 
   return (
     <div className="all-course-wr">
-      {/* <Loading
-        className="loading"
-        type={"spin"}
-        color={"#80d4f7"}
-        width={"20vw"}
-      /> */}
-      {courses.length > 0
-        ? courses.map((course) => {
-            id++;
-            return (
-              <Course
-                key={id}
-                courseName={course.courseName}
-                instructor={course.instructor}
-                image={course.image}
-                link={course.link}
-              />
-            );
-          })
-        : testCourses.map((course) => {
-            id++;
-            return (
-              <Course
-                key={id}
-                courseName={course.courseName}
-                instructor={course.instructor}
-                image={course.image}
-                link={course.link}
-              />
-            );
-          })}
+      {courses.length > 0 ? (
+        courses.map((course) => {
+          id++;
+          return (
+            <Course
+              key={id}
+              courseName={course.courseName}
+              instructor={course.instructor}
+              image={course.image}
+              link={course.link}
+            />
+          );
+        })
+      ) : (
+        <Loading
+          className="loading"
+          type={"spin"}
+          color={"#80d4f7"}
+          width={"20vw"}
+        />
+      )}
     </div>
   );
 };
