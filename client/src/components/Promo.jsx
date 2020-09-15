@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import logo from "../assets/stem-icon.png";
 
 const Promo = ({ icon, heading, paragraph, orientation }) => {
   return (

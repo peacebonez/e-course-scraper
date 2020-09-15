@@ -6,25 +6,33 @@ import Loading from "react-loading";
 import Course from "./Course";
 
 const CourseContainer = ({ courses, loading }) => {
-  console.log("loading:", loading);
+  //key id for mapping the courses
   let id = 0;
   console.log("courses from reducer:", courses);
+
+  //dynamic text displayed during loading courses
   const [loadingText, setLoadingText] = useState("Loading...");
 
   useEffect(() => {
     const texts = [
       "Fetching courses...",
       "Finding you all the best courses...",
-      "Pulling the latest courses live for you...",
-      "Almost there....",
+      "Scraping the latest courses for you...",
+      "Almost there...",
+      "So close...",
+      "Warmer...",
+      "Trust me, it's worth it...",
     ];
     let i = 0;
-    const timer = setInterval(() => {
+    let timer = setInterval(() => {
+      //if we an out of messages reset messages to 0 index
+      if (!texts[i]) i = 0;
       setLoadingText(texts[i]);
       i++;
-    }, 5000);
+    }, 4000);
+
     return () => clearInterval(timer);
-  }, [loadingText]);
+  }, []);
 
   return (
     <div className="all-course-wr">

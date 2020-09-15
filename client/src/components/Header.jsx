@@ -13,17 +13,20 @@ import { Link, useHistory } from "react-router-dom";
 
 const Header = ({ getCourses, clearCourses, loadingCourses }) => {
   const [userQuery, setUserQuery] = useState("");
-
   const history = useHistory();
 
   const submitForm = (e) => {
     e.preventDefault();
     if (!userQuery) return;
     else {
+      //clears current displayed results
       clearCourses();
+      //sets state to loading
       loadingCourses();
+      //navigates to search results page
       history.push(`/search?course=${userQuery}`);
       getCourses(userQuery);
+      //resets user query
       setUserQuery("");
     }
   };

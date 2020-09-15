@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 import {
   FaUserClock,
   FaChalkboardTeacher,
@@ -57,7 +57,5 @@ const Landing = () => {
     </div>
   );
 };
-
-Landing.propTypes = {};
 
 export default Landing;
