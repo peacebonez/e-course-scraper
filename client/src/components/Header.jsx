@@ -8,6 +8,8 @@ import { FaSearch } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
 
 const Header = ({ getCourses, courses }) => {
+  console.log("courses state:", courses);
+
   const [userQuery, setUserQuery] = useState("");
 
   const history = useHistory();
