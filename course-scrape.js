@@ -251,6 +251,7 @@ module.exports = async (query) => {
   }
 
   await browser.close();
+  courses = courses.filter((course) => course.courseName);
   console.log(courses);
   return courses;
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import PropTypes from "prop-types";
 import Loading from "react-loading";
 
@@ -8,7 +9,6 @@ import Course from "./Course";
 const CourseContainer = ({ courses, loading }) => {
   //key id for mapping the courses
   let id = 0;
-  console.log("courses from reducer:", courses);
 
   //dynamic text displayed during loading courses
   const [loadingText, setLoadingText] = useState("Loading...");
@@ -21,7 +21,7 @@ const CourseContainer = ({ courses, loading }) => {
       "Almost there...",
       "So close...",
       "Warmer...",
-      "Trust me, it's worth it...",
+      "Trust us, it's worth it...",
     ];
     let i = 0;
     let timer = setInterval(() => {
@@ -36,7 +36,7 @@ const CourseContainer = ({ courses, loading }) => {
 
   return (
     <div className="all-course-wr">
-      {courses.length > 0 ? (
+      {courses && courses.length > 0 ? (
         // {!loading ? (
         courses.map((course) => {
           id++;
@@ -59,6 +59,14 @@ const CourseContainer = ({ courses, loading }) => {
             color={"#80d4f7"}
             width={"20vw"}
           />
+          <SkeletonTheme color="#eee" highlightColor="#fff">
+            <Skeleton
+              className="skeleton-box"
+              height={250}
+              width={250}
+              count={10}
+            />
+          </SkeletonTheme>
         </div>
       )}
     </div>

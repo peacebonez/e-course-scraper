@@ -219,6 +219,11 @@ hr {
   // justify-content: center;
 }
 
+.skeleton-box {
+  @extend .course-wr;
+  opacity: 0.4;
+}
+
 .course-img {
   width: 100%;
   height: 150px;
