@@ -62,8 +62,8 @@ const CourseContainer = ({ courses, loading }) => {
           <SkeletonTheme color="#eee" highlightColor="#fff">
             <Skeleton
               className="skeleton-box"
-              height={250}
-              width={250}
+              height={350}
+              width={450}
               count={10}
             />
           </SkeletonTheme>
