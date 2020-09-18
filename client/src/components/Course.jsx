@@ -4,7 +4,7 @@ import placeholder from "../assets/img-placeholder.png";
 
 const Course = ({ courseName, instructor, image, link }) => {
   //snips course name and instructor if too long
-  if (courseName.length > 50) courseName = courseName.substr(0, 50) + "...";
+  if (courseName.length > 55) courseName = courseName.substr(0, 55) + "...";
   if (instructor.length > 25) instructor = instructor.substr(0, 25) + "...";
 
   return (

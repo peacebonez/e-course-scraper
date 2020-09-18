@@ -8,7 +8,7 @@ import store from "./store";
 import Header from "./components/Header";
 import Landing from "./components/Landing";
 import CourseContainer from "./components/CourseContainer";
-import Footer from "./components/Footer";
+import Background from "./components/Background";
 import NotFound from "./components/NotFound";
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
             <Route component={NotFound} />
           </Switch>
         </Router>
-        <Footer />
+        <Background />
       </div>
     </Provider>
   );

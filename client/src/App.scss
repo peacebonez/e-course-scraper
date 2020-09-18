@@ -3,6 +3,8 @@ $basic-border: solid 1px black;
 $medium-font: 20px;
 $blue: #80d4f7;
 $maroon: #b63066;
+$tablet-width: 80vw;
+$laptop-width: 50vw;
 
 // GLOBAL CSS RULES
 
@@ -81,7 +83,6 @@ hr {
 #search-btn {
   height: 6vh;
   font-size: 6vw;
-
   padding: 5px;
   background: $blue;
   color: #fff;
@@ -115,15 +116,17 @@ hr {
 
 .landing-background {
   width: 100vw;
-  height: 60vh;
-  background: linear-gradient(
+  height: 50vh;
+  background-image: linear-gradient(
       rgba(255, 255, 255, 0.45),
       rgba(128, 212, 247, 0.45)
     ),
-    url("../src/assets/learn.jpg");
+    url("../src/assets/lofimain.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.footer-background {
+.global-background {
   // position: relative;
   position: fixed;
   bottom: 0;
@@ -131,7 +134,7 @@ hr {
   z-index: -2;
 
   width: 100vw;
-  height: 120vh;
+  height: 180vh;
   background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.9),
@@ -142,22 +145,27 @@ hr {
 
 .landing-header-wr {
   width: 100vw;
-  height: 42vh;
+  height: 55vh;
   background: #f3f6fd;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 0 0 20px 20px;
+  border-radius: 20px;
+  z-index: 1;
+  transform: translateY(-3vh);
+  box-shadow: 1px 1px 5px #444;
 }
 
 .landing-header-wr h1 {
   color: #444;
+  // color: #fff;
 }
 
 //Promo Box
 .promo-wr {
-  width: 75vw;
-  height: 75vw;
+  width: 90vw;
+  height: 90vw;
+  padding: 2vw;
   background: $blue;
   margin: 6vw;
   box-shadow: 1px 1px 5px #444;
@@ -206,10 +214,9 @@ hr {
 .course-wr {
   width: 100vw;
   height: 85vw;
-  // margin: 6vw;
   padding: 5vw;
   background: #fff;
-  box-shadow: 0.25px 0.25px 4px #888;
+  box-shadow: 0.25px 0.25px 4px #aaa;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -227,19 +234,25 @@ hr {
   height: 150px;
   padding-top: 1vh;
   text-align: center;
+  box-shadow: 1px 1px 5px #444;
 }
 
 .course-name {
   font-size: 20px;
+  text-decoration: underline;
 }
 
 .instructor {
   text-align: center;
   padding: 3vw;
   border-radius: 20px;
-  background: linear-gradient(180deg, #eee, $blue);
+  width: 100%;
+  background: #444;
+  color: #fff;
+  transition: all 0.4s;
   &:hover {
-    background: linear-gradient(90deg, #eee, $blue);
+    background: $blue;
+    color: #444;
   }
 }
 
@@ -263,88 +276,241 @@ hr {
 }
 
 // ~~~~~~~~~MEDIA QUERIES~~~~~~~~~~~~~~
-/* ----------- iPhone 4 and 4S ----------- */
+/**
+ * Basic CSS Media Query Template
+ * TODO: I should probably use Sass...
+ * Author: Michael Vieth
+ * ------------------------------------------
+ *  Responsive Grid Media Queries - 1280, 1024, 768, 480
+ *   1280-1024   - desktop (default grid)
+ *   1024-768    - tablet landscape
+ *   768-480     - tablet 
+ *   480-less    - phone landscape & smaller
+ * --------------------------------------------
+ */
+//LAPTOP
+@media all and (min-width: 1015px) and (max-width: 2000px) {
+  .header-wr {
+    margin-top: 3vh;
+  }
 
-/* Portrait and Landscape */
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
-  /* Portrait */
-  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-    .header-wr {
-      // margin-top: 2vh;
-    }
+  .form-wr {
+    width: 50%;
+  }
+  #search-btn {
+    font-size: 2vw;
+  }
+  #logo {
+    transform: translateX(9vw);
+    width: 20%;
+  }
 
-    // .landing-background {
-    //   height: 60vh;
-    //   width: 130vw;
-    // }
-    // .landing-header-wr {
-    //   height: 42vh;
-    // }
+  .landing-wr {
+    width: $laptop-width;
+  }
 
-    .promo-wr {
-      width: 90vw;
-      height: 90vw;
-      padding: 2vw;
-    }
+  .landing-background {
+    width: $laptop-width;
+  }
+
+  .landing-header-wr {
+    width: 40vw;
+  }
+
+  .landing-header-wr h1 {
+    font-size: 3.5vw;
+  }
+
+  .promo-container {
+    display: flex;
+    width: $tablet-width;
+  }
+
+  .promo-wr {
+    width: 30vw;
+    height: 30vw;
+    padding: 2vw;
+  }
+
+  .promo-img-wr {
+    height: 30%;
+  }
+
+  .promo-icon {
+    font-size: 3vw;
+  }
+
+  .promo-wr p {
+    font-size: 18px;
+  }
+
+  .all-course-wr {
+    width: $tablet-width;
   }
 }
 
-/* Landscape */
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+@media all and (min-width: 890px) and (max-width: 1014px) {
+  #search-btn {
+    font-size: 4vw;
+  }
+  #logo {
+    width: 25%;
+  }
+
+  .landing-wr {
+    width: $tablet-width;
+  }
+
+  .landing-background {
+    width: $tablet-width;
+  }
+
+  .landing-header-wr {
+    width: 65vw;
+    padding: 5vw;
+  }
+
+  .landing-header-wr h1 {
+    font-size: 6vw;
+  }
+
+  .promo-img-wr {
+    height: 30%;
+    // background: #fff;
+    background: #f3f6fd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .promo-wr p {
+    font-size: 18px;
+  }
+
+  .all-course-wr {
+    width: $tablet-width;
+  }
+
+  .promo-wr {
+    width: 40vw;
+    height: 40vw;
+  }
+
+  .promo-icon {
+    font-size: 4vw;
+  }
+}
+//TABLET
+@media all and (min-width: 550px) and (max-width: 899px) {
+  #search-btn {
+    font-size: 4vw;
+  }
+  #logo {
+    width: 25%;
+  }
+
+  .landing-wr {
+    width: $tablet-width;
+  }
+
+  .landing-background {
+    width: $tablet-width;
+  }
+
+  .landing-header-wr {
+    width: 75vw;
+    padding: 5vw;
+  }
+
+  .landing-header-wr h1 {
+    font-size: 6vw;
+  }
+
+  .promo-wr {
+    width: 55vw;
+    height: 45vw;
+    padding: 3vw;
+    background: $blue;
+    margin: 6vw;
+  }
+
+  .promo-img-wr {
+    height: 30%;
+    // background: #fff;
+    background: #f3f6fd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .promo-icon {
+    font-size: 5vw;
+  }
+
+  .promo-wr p {
+    font-size: 18px;
+  }
+
+  .all-course-wr {
+    width: $tablet-width;
+  }
 }
 
-/* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
+@media all and (min-width: 480px) and (max-width: 768px) {
+}
 
-/* Portrait and Landscape */
-@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+@media all and (max-width: 480px) {
+  .course-wr {
+    height: 95vw;
+  }
+
+  .course-img {
+    width: 100%;
+    padding-top: 3vh;
+  }
+
+  .course-name {
+    font-size: 4.5vw;
+  }
+  .instructor h4 {
+    font-size: 4vw;
+  }
 }
 
 /* Portrait */
-@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+@media screen and (orientation: portrait) {
+  /* Portrait styles here */
 }
-
 /* Landscape */
-@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+@media screen and (orientation: landscape) {
+  /* Landscape styles here */
 }
 
-/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+/* CSS for iPhone, iPad, and Retina Displays */
 
-/* Portrait and Landscape */
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+/* Non-Retina */
+@media screen and (-webkit-max-device-pixel-ratio: 1) {
 }
 
-/* Portrait */
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+/* Retina */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+  only screen and (-o-min-device-pixel-ratio: 3/2),
+  only screen and (min--moz-device-pixel-ratio: 1.5),
+  only screen and (min-device-pixel-ratio: 1.5) {
 }
 
-/* Landscape */
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+/* iPhone Portrait */
+@media screen and (max-device-width: 480px) and (orientation: portrait) {
 }
 
-/* ----------- iPhone 6+, 7+ and 8+ ----------- */
-
-/* Portrait and Landscape */
-@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
+/* iPhone Landscape */
+@media screen and (max-device-width: 480px) and (orientation: landscape) {
 }
 
-/* Portrait */
-@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
+/* iPad Portrait */
+@media screen and (min-device-width: 481px) and (orientation: portrait) {
 }
 
-/* Landscape */
-@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {
-}
-
-/* ----------- iPhone X ----------- */
-
-/* Portrait and Landscape */
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
-}
-
-/* Portrait */
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
-}
-
-/* Landscape */
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {
+/* iPad Landscape */
+@media screen and (min-device-width: 481px) and (orientation: landscape) {
 }
