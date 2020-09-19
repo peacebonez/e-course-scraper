@@ -24,7 +24,7 @@ a {
 }
 
 hr {
-  width: 50vw;
+  width: 50%;
 }
 
 #root {
@@ -55,6 +55,7 @@ hr {
   align-items: center;
   height: 7vh;
   margin-top: 2vh;
+  overflow: hidden;
 }
 
 .form-wr {
@@ -64,6 +65,7 @@ hr {
 }
 
 .header-form {
+  width: 100%;
 }
 
 #search-bar {
@@ -124,10 +126,12 @@ hr {
     url("../src/assets/lofimain.jpg");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
+  border-radius: 20px;
+  box-shadow: 1px 1px 5px #444;
 }
 
 .global-background {
-  // position: relative;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -140,24 +144,33 @@ hr {
       rgba(255, 255, 255, 0.9),
       rgba(128, 212, 247, 0.9)
     ),
-    url("../src/assets/green.jpg");
+    url("../src/assets/green.jpg") no-repeat center;
 }
 
 .landing-header-wr {
   width: 100vw;
   height: 55vh;
-  background: #f3f6fd;
+  // background: #f3f6fd;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
   z-index: 1;
   transform: translateY(-3vh);
-  box-shadow: 1px 1px 5px #444;
+  // box-shadow: 1px 1px 5px #444;
 }
 
-.landing-header-wr h1 {
+#company-title {
+  font-family: "Titillium Web", sans-serif;
   color: #444;
+  font-size: 2.5vw;
+  margin: 0;
+}
+
+.landing-header-wr h3 {
+  color: #444;
+  font-size: 2vw;
 }
 
 //Promo Box
@@ -288,37 +301,39 @@ hr {
  *   480-less    - phone landscape & smaller
  * --------------------------------------------
  */
-//LAPTOP
-@media all and (min-width: 1015px) and (max-width: 2000px) {
+
+//BIG SCREENS
+@media all and (min-width: 2001px) {
   .header-wr {
     margin-top: 3vh;
   }
 
   .form-wr {
-    width: 50%;
+    width: 75%;
   }
   #search-btn {
-    font-size: 2vw;
+    font-size: 1vw;
   }
   #logo {
     transform: translateX(9vw);
-    width: 20%;
+    width: 25%;
   }
 
   .landing-wr {
-    width: $laptop-width;
   }
 
   .landing-background {
-    width: $laptop-width;
+    width: 50vw;
+    height: 50vh;
   }
 
   .landing-header-wr {
     width: 40vw;
+    height: 30vh;
   }
 
-  .landing-header-wr h1 {
-    font-size: 3.5vw;
+  .landing-header-wr h2 {
+    font-size: 3vw;
   }
 
   .promo-container {
@@ -372,6 +387,136 @@ hr {
   }
 }
 
+//LAPTOP
+
+@media all and (min-width: 1015px) and (max-width: 2000px) {
+  .header-wr {
+    margin-top: 3vh;
+    width: 50%;
+  }
+
+  .form-wr {
+    width: 65%;
+  }
+  #search-btn {
+    font-size: 2vw;
+  }
+  #logo {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 5%;
+  }
+
+  .landing-wr {
+    width: $laptop-width;
+  }
+
+  .landing-background {
+    width: $laptop-width;
+  }
+
+  .landing-header-wr {
+    width: 30vw;
+    transform: translateY(-3vw);
+  }
+
+  .landing-header-wr h2 {
+    font-size: 3.5vw;
+  }
+
+  .promo-container {
+    display: flex;
+  }
+
+  .promo-wr {
+    width: 35vw;
+    height: 35vw;
+    padding: 2vw;
+  }
+
+  .promo-img-wr {
+    height: 30%;
+  }
+
+  .promo-icon {
+    font-size: 3vw;
+  }
+
+  .promo-wr p {
+    font-size: 20px;
+  }
+
+  .all-course-wr {
+    width: 100%;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  .course-wr {
+    height: 30vw;
+    width: 30vw;
+    margin: 1vw;
+  }
+
+  .course-img-wr {
+    padding-top: 3vh;
+  }
+
+  .course-img {
+    max-width: 100%;
+  }
+
+  .course-name {
+    font-size: 1.5vw;
+  }
+  .instructor {
+    font-size: 1.5vw;
+    padding: 0.5vw;
+  }
+}
+
+@media all and (min-width: 1500px) {
+  .promo-wr {
+    width: 25vw;
+    height: 25vw;
+    padding: 2vw;
+  }
+
+  .promo-img-wr {
+    height: 30%;
+  }
+
+  .promo-icon {
+    font-size: 3vw;
+  }
+
+  .promo-wr p {
+    font-size: 20px;
+  }
+
+  .course-wr {
+    height: 20vw;
+    width: 20vw;
+  }
+
+  .course-img-wr {
+    padding-top: 3vh;
+  }
+
+  .course-img {
+    max-width: 100%;
+    height: 100%;
+  }
+
+  .course-name {
+    font-size: 1vw;
+  }
+  .instructor {
+    font-size: 1vw;
+    padding: 0.5vw;
+  }
+}
+
 @media all and (min-width: 890px) and (max-width: 1014px) {
   #search-btn {
     font-size: 4vw;
@@ -393,7 +538,7 @@ hr {
     padding: 5vw;
   }
 
-  .landing-header-wr h1 {
+  .landing-header-wr h2 {
     font-size: 6vw;
   }
 
@@ -439,7 +584,7 @@ hr {
     padding: 5vw;
   }
 
-  .landing-header-wr h1 {
+  .landing-header-wr h2 {
     font-size: 6vw;
   }
 
@@ -515,7 +660,7 @@ hr {
     padding: 5vw;
   }
 
-  .landing-header-wr h1 {
+  .landing-header-wr h2 {
     font-size: 6vw;
   }
 
@@ -569,12 +714,30 @@ hr {
     font-size: 1.5vw;
     padding: 1vw;
   }
+  #company-title {
+    font-family: "Titillium Web", sans-serif;
+    color: #444;
+    font-size: 16vw;
+  }
+
+  .landing-header-wr h3 {
+    font-size: 8vw;
+  }
 }
 
 @media all and (min-width: 480px) and (max-width: 768px) {
 }
 //Small phones
 @media all and (max-width: 480px) {
+  #company-title {
+    font-family: "Titillium Web", sans-serif;
+    color: #444;
+    font-size: 16vw;
+  }
+
+  .landing-header-wr h3 {
+    font-size: 8vw;
+  }
   .course-wr {
     height: 95vw;
   }
