@@ -4,7 +4,7 @@ const scraper = require("./course-scrape");
 const app = express();
 
 const PORT = 5000;
-app.listen(PORT || 5000);
+app.listen(process.env.port || PORT);
 
 console.log("Server up and running at " + PORT);
 
