@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-coursescraper-dev-113715-authRole",
+            "UnauthRoleArn": "arn:aws:iam::279443452249:role/amplify-coursescraper-dev-113715-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::279443452249:role/amplify-coursescraper-dev-113715-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-coursescraper-dev-113715-deployment",
+            "UnauthRoleName": "amplify-coursescraper-dev-113715-unauthRole",
+            "StackName": "amplify-coursescraper-dev-113715",
+            "StackId": "arn:aws:cloudformation:us-east-1:279443452249:stack/amplify-coursescraper-dev-113715/ff56c1f0-fa8d-11ea-9404-127c6c2d7f71",
+            "AmplifyAppId": "d1wndupwab7tca"
+        }
+    }
+}
