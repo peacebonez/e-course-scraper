@@ -7,8 +7,8 @@ app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 
 //search query
-// app.get("/search", async (req, res) => {
-app.use("/search", async (req, res) => {
+app.get("/search", async (req, res) => {
+  // app.use("/search", async (req, res) => {
   const query = req.query;
   console.log("query.course:", query.course);
   const courses = await scraper(query.course);
