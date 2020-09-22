@@ -3,15 +3,21 @@ const path = require("path");
 const scraper = require("./course-scrape");
 const app = express();
 
-const PORT = 5000;
-
-console.log("Server up and running at " + PORT);
-
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 
+//search query
+// app.get("/search", async (req, res) => {
+app.use("/search", async (req, res) => {
+  const query = req.query;
+  console.log("query.course:", query.course);
+  const courses = await scraper(query.course);
+
+  res.json(courses);
+});
+
 //home page
-app.use("/", express.static(path.join(__dirname, "client", "public")));
+// app.use("/", express.static(path.join(__dirname, "client", "public")));
 
 // home page
 // app.get("/", (req, res) => {
@@ -26,16 +32,6 @@ app.use("/", express.static(path.join(__dirname, "client", "public")));
 //   }
 // });
 
-//search query
-// app.get("/search", async (req, res) => {
-app.use("/search", async (req, res) => {
-  const query = req.query;
-  console.log("query.course:", query.course);
-  const courses = await scraper(query.course);
-
-  res.json(courses);
-});
-
 if (process.env.NODE_ENV === "production") {
   //Set the static folder
   app.use(express.static("client/build"));
@@ -45,6 +41,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(process.env.PORT || PORT);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log("Server up and running at " + PORT));
 
 module.exports = app;
