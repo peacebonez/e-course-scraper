@@ -4,7 +4,6 @@ const scraper = require("./course-scrape");
 const app = express();
 
 const PORT = 5000;
-app.listen(process.env.port || PORT);
 
 console.log("Server up and running at " + PORT);
 
@@ -35,5 +34,7 @@ app.get("/search", async (req, res) => {
 
   res.json(courses);
 });
+
+app.listen(process.env.port || PORT);
 
 module.exports = app;
