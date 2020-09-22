@@ -27,7 +27,8 @@ app.use("/", express.static(path.join(__dirname, "client", "public")));
 // });
 
 //search query
-app.get("/search", async (req, res) => {
+// app.get("/search", async (req, res) => {
+app.use("/search", async (req, res) => {
   const query = req.query;
   console.log("query.course:", query.course);
   const courses = await scraper(query.course);
