@@ -1,7 +1,7 @@
 {
   "name": "course-scraper",
   "version": "1.0.0",
-  "description": "",
+  "description": "Online course web scraper",
   "main": "server.js",
   "scripts": {
     "start": "node server",
