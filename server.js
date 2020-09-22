@@ -35,6 +35,6 @@ app.get("/search", async (req, res) => {
   res.json(courses);
 });
 
-app.listen(process.env.port || PORT);
+app.listen(process.env.PORT || PORT);
 
 module.exports = app;
